@@ -1,23 +1,26 @@
 const Header = ({course}) => {
-  console.log(course)
   return (
     <h1>{course.name}</h1>
   )
 }
 
 const Content = ({course}) => {
-  console.log(course.parts[0]['exercises'])
+  let comp = []
+  course.parts.forEach(element => {
+    comp.push(<Part part={element.name} exercises={element.exercises} key={element.name}/>)
+  });
   return (
     <div>
-      <Part part={course.parts[0]['name']} exercises={course.parts[0]['exercises']} />
-      <Part part={course.parts[1]['name']} exercises={course.parts[1]['exercises']} />
-      <Part part={course.parts[2]['name']} exercises={course.parts[2]['exercises']} />
+      {comp}
     </div>
   )
 }
 
 const Total = ({course}) => {
-  const total = course.parts[0]['exercises'] + course.parts[1]['exercises'] + course.parts[2]['exercises']
+  let total = 0
+  course.parts.forEach(element => {
+    total += element.exercises
+  });
   return (
     <p>Number of excercises {total}</p>
   )
